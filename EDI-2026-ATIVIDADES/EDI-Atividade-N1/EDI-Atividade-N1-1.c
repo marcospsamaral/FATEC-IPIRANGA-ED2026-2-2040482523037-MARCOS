@@ -7,6 +7,12 @@ void exibirCabecalho() {
     printf("=================================\n");
 }
 
+
+/* 
+    O vetor é sempre passado por referência para essa função por que 
+    o compilador transforma os colchetes do vetor em um ponteiro, por questão de eficiência, 
+    pois passar o valor de dentro de um array todas as vezes seria muito custoso para o processamento.
+*/
 float calcularMedia(float vetor[], int tamanho) {
     float total = 0.0;
     for (int i = 0; i < tamanho; i++) {
