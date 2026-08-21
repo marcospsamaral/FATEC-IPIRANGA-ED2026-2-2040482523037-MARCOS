@@ -23,19 +23,12 @@ void simularAjuste(float notaOriginal, float bonus) {
 }
 
 void aplicarBonus(float *nota, float bonus) {
-    printf("\n--- Aplicacao real do bonus (passagem por referencia) ---");
-    
-    for (int i; i < TAMANHO_TURMA; i++) {
-        nota[i] = *(nota + i) + bonus;
-    }
-    
-    printf("\nBonus de %.2f aplicado a todas as notas da turma");
+    *nota = *nota + bonus;
 }
 
 int main() {
     float notas[TAMANHO_TURMA];
     float bonus = 0.0;
-    float *nota = notas;
     
     exibirCabecalho();
 
@@ -52,16 +45,19 @@ int main() {
     
     simularAjuste(notas[0], bonus);
     
-    aplicarBonus(nota, bonus);
+    printf("\n\n--- Aplicacao real do bonus (passagem por referencia) ---");
+    for (int i = 0; i < TAMANHO_TURMA; i++) {
+        aplicarBonus(&notas[i], bonus);
+    }
+    printf("\nBonus de %.2f aplicado a todas as notas da turma", bonus);
     
-    printf("\n--- Notas finais da turma ---\n");
-    
+    printf("\n\n--- Notas finais da turma ---\n");
     for (int i = 0; i < TAMANHO_TURMA; i++) {
         printf("Aluno %d: ", i + 1);
-        printf("%.2f", &notas[i]);
+        printf("%.2f", notas[i]);
+        printf("\n");
     }
     
     printf("\n--- Media da turma apos do ajuste ---\n");
     printf("Media final: %.2f", calcularMedia(notas, TAMANHO_TURMA));
 }
-
